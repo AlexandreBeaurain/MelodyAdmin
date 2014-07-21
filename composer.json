@@ -1,0 +1,42 @@
+{
+	"name" : "melody/admin",
+	"description" : "Admin generator for Melody components",
+	"type" : "symfony-bundle",
+	"license" : "MIT",
+	"require" : {
+		"avocode/form-extensions-bundle" : "dev-master",
+		"cedriclombardot/admingenerator-generator-bundle" : "1.2.*@dev",
+		"incenteev/composer-parameter-handler" : "~2.0",
+		"leafo/lessphp" : "dev-master",
+		"leafo/scssphp-compass" : "dev-master",
+		"leafo/scssphp" : "dev-master",
+		"melody/user" : "dev-master",
+		"php" : ">=5.3",
+		"richthegeek/phpsass" : "dev-master",
+		"sensio/distribution-bundle" : "~2.3",
+		"sensio/framework-extra-bundle" : "3.0.*@dev",
+		"sensio/generator-bundle" : "~2.3",
+		"symfony/assetic-bundle" : "~2.3",
+		"symfony/monolog-bundle" : "2.5.*@dev",
+		"symfony/swiftmailer-bundle" : "~2.3",
+		"symfony/symfony" : "~2.4",
+		"twig/extensions" : "~1.0",
+		"twitter/bootstrap" : "3.1.*@dev"
+	},
+	"suggest" : {
+		"doctrine/doctrine-bundle" : "~1.2",
+		"doctrine/orm" : "~2.2,>=2.2.3",
+		"gedmo/doctrine-extensions" : "2.3.*@dev",
+		"knplabs/doctrine-behaviors" : "1.0.*@dev",
+		"propel/propel-bundle" : "1.4.*@dev",
+		"willdurand/propel-geocodable-behavior" : "dev-master",
+		"willdurand/propel-typehintable-behavior" : "dev-master"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Melody\\AdminBundle" : ""
+		}
+	},
+	"target-dir" : "Melody/AdminBundle",
+	"minimum-stability" : "dev"
+}
