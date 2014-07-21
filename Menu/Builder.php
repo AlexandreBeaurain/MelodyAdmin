@@ -5,6 +5,7 @@ use Admingenerator\GeneratorBundle\Menu\AdmingeneratorMenuBuilder;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\Container;
 
 class Builder extends AdmingeneratorMenuBuilder
 {
@@ -35,13 +36,15 @@ class Builder extends AdmingeneratorMenuBuilder
             ) {
                 $controllerAction = explode(':', $defaults['_controller']);
                 $controllerClass = $controllerAction[0];
+                list($none,$bundleName,$none, $entity, $none) = explode('\\',$controllerClass,6);
+                $bundleName = ucfirst( strtr( Container::underscore( strtr( $bundleName, array('Bundle'=>'') ) ), array('_'=>' ') ) );
+                $entity = ucfirst( strtr( Container::underscore( $entity ), array('_'=>' ') ) );
                 $controller = new $controllerClass();
                 if (
                     $controller instanceof \Admingenerator\GeneratorBundle\Controller\Doctrine\BaseController ||
                     $controller instanceof \Admingenerator\GeneratorBundle\Controller\Propel\BaseController
                 ) {
-                    var_dump($controllerClass);
-                    $menuElements['Test'][$routeName] = $routeName;
+                    $menuElements[$bundleName][$entity] = $routeName;
                 }
             }
         }
