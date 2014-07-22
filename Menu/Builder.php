@@ -22,6 +22,12 @@ class Builder extends AdmingeneratorMenuBuilder
     public function createAdminMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
+        if (
+            ! ( $securityContext = $this->container->get('security.context') ) || 
+            ! ( $securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
+        ) {
+            return $menu;
+        }
         $router = $this->container->get('router');
         $collection = $router->getRouteCollection();
         $allRoutes = $collection->all();
