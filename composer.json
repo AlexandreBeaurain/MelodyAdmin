@@ -15,7 +15,7 @@
 		"richthegeek/phpsass" : "dev-master",
 		"sensio/distribution-bundle" : "~2.3",
 		"sensio/framework-extra-bundle" : "3.0.*@dev",
-		"sensio/generator-bundle" : "~2.3",
+		"sensio/generator-bundle" : ">=2.3",
 		"symfony/assetic-bundle" : "~2.3",
 		"symfony/monolog-bundle" : "2.5.*@dev",
 		"symfony/swiftmailer-bundle" : "~2.3",
