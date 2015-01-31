@@ -35,10 +35,9 @@
 		"willdurand/propel-typehintable-behavior" : "dev-master"
 	},
 	"autoload" : {
-		"psr-0" : {
+		"psr-4" : {
 			"Melody\\AdminBundle" : ""
 		}
 	},
-	"target-dir" : "Melody/AdminBundle",
 	"minimum-stability" : "dev"
 }
