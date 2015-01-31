@@ -7,7 +7,7 @@ admingenerator_generator:
       - { path: bundles/admin/css/common.css }
     templates_dirs:
         - "%kernel.root_dir%/../vendor/melody/admin/Resources/templates"
-        - "%kernel.root_dir%/../vendor/cedriclombardot/admingenerator-generator-bundle/Admingenerator/GeneratorBundle/Resources/templates"
+        - "%kernel.root_dir%/../vendor/symfony2admingenerator/generator-bundle/Resources/templates"
     form_types:
         propel:
             TIMESTAMP:    afe_datetime_picker 
