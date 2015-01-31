@@ -39,3 +39,10 @@ services:
         scope: request
         tags:
           - { name: knp_menu.menu, alias: admin }
+
+hwi_oauth:
+    firewall_name: account
+    connect:
+        confirmation: true
+    fosub:
+        username_iterations: 30
