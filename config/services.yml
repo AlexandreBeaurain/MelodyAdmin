@@ -20,7 +20,11 @@ knp_menu:
     providers:
         builder_alias: true
         container_aware: true
-        
+
+jms_security_extra:
+    # Enables expression language
+    expressions: true
+
 # services
 services: 
     menu_builder:
