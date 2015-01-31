@@ -36,7 +36,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Melody\\AdminBundle" : ""
+			"Melody\\AdminBundle\\" : ""
 		}
 	},
 	"minimum-stability" : "dev"
