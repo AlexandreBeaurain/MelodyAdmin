@@ -2,7 +2,7 @@
 
 namespace Melody\AdminBundle\Generator;
 
-use Admingenerator\GeneratorBundle\Generator\DoctrineGenerator as AdminDoctrineGenerator
+use Admingenerator\GeneratorBundle\Generator\DoctrineGenerator as AdminDoctrineGenerator;
 use Admingenerator\GeneratorBundle\Builder\Generator as AdminGenerator;
 use Admingenerator\GeneratorBundle\Exception\CantGenerateException;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\ListBuilderAction;
