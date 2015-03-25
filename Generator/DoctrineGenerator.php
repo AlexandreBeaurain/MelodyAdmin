@@ -3,24 +3,8 @@
 namespace Melody\AdminBundle\Generator;
 
 use Admingenerator\GeneratorBundle\Generator\DoctrineGenerator as AdminDoctrineGenerator;
-use Admingenerator\GeneratorBundle\Builder\Generator as AdminGenerator;
+use Melody\AdminBundle\Builder\Generator as AdminGenerator;
 use Admingenerator\GeneratorBundle\Exception\CantGenerateException;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ListBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ListBuilderTemplate;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\NestedListBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\NestedListBuilderTemplate;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\FiltersBuilderType;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ExcelBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\EditBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\EditBuilderTemplate;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\EditBuilderType;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderTemplate;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderType;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ShowBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ShowBuilderTemplate;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ActionsBuilderAction;
-use Admingenerator\GeneratorBundle\Builder\Doctrine\ActionsBuilderTemplate;
 
 class DoctrineGenerator extends AdminDoctrineGenerator {
     
@@ -70,41 +54,22 @@ class DoctrineGenerator extends AdminDoctrineGenerator {
     
         $builders = $generator->getFromYaml('builders', array());
     
-        if (array_key_exists('list', $builders)) {
-            $generator->addBuilder(new ListBuilderAction());
-            $generator->addBuilder(new ListBuilderTemplate());
-            $generator->addBuilder(new FiltersBuilderType());
-        }
-    
-        if (array_key_exists('nested_list', $builders)) {
-            $generator->addBuilder(new NestedListBuilderAction());
-            $generator->addBuilder(new NestedListBuilderTemplate());
-        }
-    
-        if (array_key_exists('edit', $builders)) {
-            $generator->addBuilder(new EditBuilderAction());
-            $generator->addBuilder(new EditBuilderTemplate());
-            $generator->addBuilder(new EditBuilderType());
-        }
-    
-        if (array_key_exists('new', $builders)) {
-            $generator->addBuilder(new NewBuilderAction());
-            $generator->addBuilder(new NewBuilderTemplate());
-            $generator->addBuilder(new NewBuilderType());
-        }
-    
-        if (array_key_exists('show', $builders)) {
-            $generator->addBuilder(new ShowBuilderAction());
-            $generator->addBuilder(new ShowBuilderTemplate());
-        }
-    
-        if (array_key_exists('excel', $builders)) {
-            $generator->addBuilder(new ExcelBuilderAction());
-        }
-    
-        if (array_key_exists('actions', $builders)) {
-            $generator->addBuilder(new ActionsBuilderAction());
-            $generator->addBuilder(new ActionsBuilderTemplate());
+        foreach( array(
+            'list'=>array('ListBuilderAction','ListBuilderTemplate','FiltersBuilderType'),
+            'nested_list'=>array('NestedListBuilderAction','NestedListBuilderTemplate'),
+            'edit'=>array('EditBuilderAction','EditBuilderTemplate','EditBuilderType'),
+            'new'=>array('NewBuilderAction','NewBuilderTemplate','NewBuilderType'),
+            'show'=>array('ShowBuilderAction','ShowBuilderTemplate'),
+            'excel'=>array('ExcelBuilderAction'),
+            'actions'=>array('ActionsBuilderAction','ActionsBuilderTemplate'),
+        ) as $key => $builderClasses ) {
+            if (array_key_exists($key, $builders)) {
+                foreach( $builderClasses as $builderClass ) {
+                    $builderClassWithNameSpace = '\\Admingenerator\\GeneratorBundle\\Builder\\Doctrine\\'.$builderClass;
+                    $builder = new $builderClassWithNameSpace();
+                    $generator->addBuilder($builder);
+                }
+            }
         }
     
         $generator->writeOnDisk(
