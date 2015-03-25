@@ -1,6 +1,6 @@
 <?php
 
-namespace Melody\MelodyAdminBundle\Generator;
+namespace Melody\AdminBundle\Generator;
 
 use Admingenerator\GeneratorBundle\Generator\DoctrineGenerator as AdminDoctrineGenerator
 use Admingenerator\GeneratorBundle\Builder\Generator as AdminGenerator;

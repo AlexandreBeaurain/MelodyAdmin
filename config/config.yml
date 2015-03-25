@@ -1,2 +1,0 @@
-parameters:
-    admingenerator.doctrine.class: Melody\MelodyAdminBundle\Generator\DoctrineGenerator
