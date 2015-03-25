@@ -43,8 +43,14 @@ class DoctrineGenerator extends AdminDoctrineGenerator {
         $generator->setFieldGuesser($this->getFieldGuesser());
         $generator->setMustOverwriteIfExists($this->needToOverwrite($generator));
         if ($this->container->has('twig')) {
+            if( method_exists($generator, 'loadTwigExtensions') ) {
+                $generator->loadTwigExtensions($this->container->get('twig')->getExtensions());
+            }
             if( method_exists($generator, 'setTwigExtensions') ) {
                 $generator->setTwigExtensions($this->container->get('twig')->getExtensions());
+            }
+            if( method_exists($generator, 'loadTwigFilters') ) {
+                $generator->loadTwigFilters($this->container->get('twig')->getFilters());
             }
             if( method_exists($generator, 'setTwigFilters') ) {
                 $generator->setTwigFilters($this->container->get('twig')->getFilters());
