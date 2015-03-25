@@ -1,5 +1,6 @@
 parameters:
     admingenerator.doctrine.class: Melody\AdminBundle\Generator\DoctrineGenerator
+    twig.loader.filesystem.class: Melody\AdminBundle\Twig\Loader\FilesystemLoader
 
 # AdminGenerator Configuration
 admingenerator_generator:
