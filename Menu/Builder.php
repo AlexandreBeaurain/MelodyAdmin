@@ -1,13 +1,13 @@
 <?php
 namespace Melody\AdminBundle\Menu;
 
-use Admingenerator\GeneratorBundle\Menu\AdmingeneratorMenuBuilder;
+use Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
 
-class Builder extends AdmingeneratorMenuBuilder
+class Builder extends DefaultMenuBuilder
 {
 
     protected $factory;
@@ -19,9 +19,9 @@ class Builder extends AdmingeneratorMenuBuilder
         $this->container = $container;
     }
 
-    public function createAdminMenu(Request $request)
+    public function sidebarMenu(FactoryInterface $factory, array $options)
     {
-        $menu = $this->factory->createItem('root');
+        $menu = $factory->createItem('root');
         if (
             ! ( $securityContext = $this->container->get('security.context') ) || 
             ! ( $securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
