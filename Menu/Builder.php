@@ -3,6 +3,7 @@ namespace Melody\AdminBundle\Menu;
 
 use Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder;
 use Knp\Menu\FactoryInterface;
+use Symfony\Component\DependencyInjection\Container;
 
 class Builder extends DefaultMenuBuilder
 {
