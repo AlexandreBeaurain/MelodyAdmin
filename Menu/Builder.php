@@ -13,7 +13,7 @@ class Builder extends DefaultMenuBuilder
     protected $factory;
     protected $container;
 
-    public function __construct(FactoryInterface $factory, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->factory = $factory;
         $this->container = $container;
