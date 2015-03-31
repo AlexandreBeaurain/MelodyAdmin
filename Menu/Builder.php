@@ -11,11 +11,17 @@ class Builder extends DefaultMenuBuilder
     public function sidebarMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
+        $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
         if (
             ! ( $securityContext = $this->container->get('security.context') ) || 
             ! ( $securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         ) {
             return $menu;
+        }
+        if ($dashboardRoute = $this->container->getParameter('admingenerator.dashboard_route')) {
+            $this
+                ->addLinkRoute($menu, 'admingenerator.dashboard', $dashboardRoute)
+                ->setExtra('icon', 'fa fa-dashboard');
         }
         $router = $this->container->get('router');
         $collection = $router->getRouteCollection();
@@ -43,7 +49,6 @@ class Builder extends DefaultMenuBuilder
                 }
             }
         }
-        $menu->setChildrenAttributes(array('id' => 'main_navigation', 'class' => 'nav navbar-nav'));
         foreach( $menuElements as $menuGroup => $menuElementsPerGroup ) {
             $group = $this->addDropdown($menu, $menuGroup);
             foreach( $menuElementsPerGroup as $label => $route ) {
