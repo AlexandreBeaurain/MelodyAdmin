@@ -2,6 +2,7 @@
 namespace Melody\AdminBundle\Menu;
 
 use Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder;
+use Knp\Menu\FactoryInterface;
 
 class Builder extends DefaultMenuBuilder
 {
