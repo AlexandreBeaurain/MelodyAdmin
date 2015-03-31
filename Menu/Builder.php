@@ -2,22 +2,9 @@
 namespace Melody\AdminBundle\Menu;
 
 use Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder;
-use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\Container;
 
 class Builder extends DefaultMenuBuilder
 {
-
-    protected $factory;
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->factory = $factory;
-        $this->container = $container;
-    }
 
     public function sidebarMenu(FactoryInterface $factory, array $options)
     {
