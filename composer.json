@@ -18,6 +18,14 @@
 		"willdurand/propel-geocodable-behavior" : "dev-master",
 		"willdurand/propel-typehintable-behavior" : "dev-master"
 	},
+	"scripts" : {
+		"post-install-cmd" : [
+			"Admingenerator\\GeneratorBundle\\Composer\\ScriptHandler::installAssets"
+		],
+		"post-update-cmd" : [
+			"Admingenerator\\GeneratorBundle\\Composer\\ScriptHandler::installAssets"
+		]
+	},
 	"autoload" : {
 		"psr-4" : {
 			"Melody\\AdminBundle\\" : ""
