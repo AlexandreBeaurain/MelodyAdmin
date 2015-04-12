@@ -1,32 +1,27 @@
 <?php
 namespace Melody\AdminBundle\Menu;
 
-use Admingenerator\GeneratorBundle\Menu\AdmingeneratorMenuBuilder;
+use Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder;
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
 
-class Builder extends AdmingeneratorMenuBuilder
+class Builder extends DefaultMenuBuilder
 {
 
-    protected $factory;
-    protected $container;
-
-    public function __construct(FactoryInterface $factory, ContainerInterface $container)
+    public function sidebarMenu(FactoryInterface $factory, array $options)
     {
-        $this->factory = $factory;
-        $this->container = $container;
-    }
-
-    public function createAdminMenu(Request $request)
-    {
-        $menu = $this->factory->createItem('root');
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
         if (
             ! ( $securityContext = $this->container->get('security.context') ) || 
             ! ( $securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         ) {
             return $menu;
+        }
+        if ($dashboardRoute = $this->container->getParameter('admingenerator.dashboard_route')) {
+            $this
+                ->addLinkRoute($menu, 'admingenerator.dashboard', $dashboardRoute)
+                ->setExtra('icon', 'fa fa-dashboard');
         }
         $router = $this->container->get('router');
         $collection = $router->getRouteCollection();
@@ -54,7 +49,6 @@ class Builder extends AdmingeneratorMenuBuilder
                 }
             }
         }
-        $menu->setChildrenAttributes(array('id' => 'main_navigation', 'class' => 'nav navbar-nav'));
         foreach( $menuElements as $menuGroup => $menuElementsPerGroup ) {
             $group = $this->addDropdown($menu, $menuGroup);
             foreach( $menuElementsPerGroup as $label => $route ) {

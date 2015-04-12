@@ -6,7 +6,7 @@
 	"require" : {
 		"melody/user" : "dev-master",
 		"symfony2admingenerator/form-extensions-bundle" : "dev-master",
-		"symfony2admingenerator/generator-bundle" : "v2.0-beta.24",
+		"symfony2admingenerator/generator-bundle" : "dev-master",
 		"symfony2admingenerator/user-bundle" : "dev-master"
 	},
 	"suggest" : {

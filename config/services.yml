@@ -1,8 +1,12 @@
+parameters:
+    admingenerator.doctrine.class: Melody\AdminBundle\Generator\DoctrineGenerator
+    twig.loader.filesystem.class: Melody\AdminBundle\Twig\Loader\FilesystemLoader
+
 # AdminGenerator Configuration
 admingenerator_generator:
     use_propel:       "%orm_propel%"
     use_doctrine_orm: "%orm_doctrine%"
-    base_admin_template: MelodyAdminBundle::base_admin.html.twig
+    base_admin_template: MelodyAdminBundle::base.html.twig
     stylesheets:
       - { path: bundles/admin/css/common.css }
     templates_dirs:
