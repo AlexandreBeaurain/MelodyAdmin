@@ -17,29 +17,18 @@ class DoctrineGenerator extends AdminDoctrineGenerator {
         $this->validateYaml();
     
         $generator = new AdminGenerator($this->cache_dir, $this->getGeneratorYml());
-        $generator->setContainer($this->container);
+        $generator->setBundleConfig($this->bundleConfig);
+        $generator->setRouter($this->router);
         $generator->setBaseAdminTemplate(
             $generator->getFromYaml(
                 'base_admin_template',
-                $this->container->getParameter('admingenerator.base_admin_template')
+                $generator->getFromBundleConfig('base_admin_template')
             )
         );
         $generator->setFieldGuesser($this->getFieldGuesser());
         $generator->setMustOverwriteIfExists($this->needToOverwrite($generator));
-        if ($this->container->has('twig')) {
-            if( method_exists($generator, 'loadTwigExtensions') ) {
-                $generator->loadTwigExtensions($this->container->get('twig')->getExtensions());
-            }
-            if( method_exists($generator, 'setTwigExtensions') ) {
-                $generator->setTwigExtensions($this->container->get('twig')->getExtensions());
-            }
-            if( method_exists($generator, 'loadTwigFilters') ) {
-                $generator->loadTwigFilters($this->container->get('twig')->getFilters());
-            }
-            if( method_exists($generator, 'setTwigFilters') ) {
-                $generator->setTwigFilters($this->container->get('twig')->getFilters());
-            }
-        }
+        $generator->setTwigExtensions($this->twig->getExtensions());
+        $generator->setTwigFilters($this->twig->getFilters());
         $generator->setTemplateDirs($this->templatesDirectories);
         $generator->setBaseController(
             'Admingenerator\GeneratorBundle\Controller\Doctrine\BaseController'
