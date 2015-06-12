@@ -1,6 +1,7 @@
 {% extends 'AdmingeneratorGeneratorBundle::base.html.twig' %}
 {% block sidebar %}
-<section class="sidebar">
+<aside class="main-sidebar sidebar-offcanvas">
+    <section class="sidebar">
     {% block sidebar_profile %}
         {% if app.user %}
             {% block sidebar_profile_authenticated %}
@@ -15,7 +16,8 @@
     {% block sidebar_menu %}
         {{ knp_menu_render('MelodyAdminBundle:Builder:sidebarMenu') }}
     {% endblock sidebar_menu %}
-</section>
+    </section>
+</aside>
 {% endblock sidebar %}
 {% block footer %}
 <footer>
