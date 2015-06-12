@@ -3,50 +3,71 @@
 
 namespace Admingenerated\{{ namespace_prefix }}{{ bundle_name }}\Form\Base{{ builder.BaseGeneratorName }}Type;
 
-use Symfony\Component\Form\AbstractType;
+use Admingenerator\GeneratorBundle\Form\BaseType;
+use Admingenerator\GeneratorBundle\Form\BaseOptions;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
 
-class {{ builder.YamlKey|ucfirst }}Type extends AbstractType
+class {{ builder.YamlKey|ucfirst }}Type extends BaseType
 {
     protected $securityContext;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->groups = $options['groups'];
+        
     {% for column in builder.columns %}
-    {%- if column.name not in ['id','created_at','updated_at','tree_left','tree_right','tree_level'] -%}
-    {%- if column.credentials -%}
-        if (false !== $this->securityContext->isGranted(array(new Expression('{{ column.credentials }}')), $builder->getData())) {
-    {%- endif %}
+    {% if column.name not in ['created_at','updated_at','tree_left','tree_right','tree_level'] %}
+        if ($this->canDisplay{{ column.name|classify|php_name }}()) {
+            $builder->add('{{ column.name }}', $this->getType{{ column.name|classify|php_name }}(), $this->getOptions{{ column.name|classify|php_name }}($options));
+        }
+    {% endif %}
+    {% endfor %}
+    }
 
-        $formOptions = $this->getFormOption('{{ column.name }}', {{ column.formOptions|merge({
+{% for column in builder.columns %}
+    /**
+     * Get form type for {{ column.name }} field.
+     *
+     * @return string|FormTypeInterface Field form type.
+     */
+    protected function getType{{ column.name|classify|php_name }}()
+    {
+        return $this->inject({% if column.name in ['id'] %}'hidden'{% else %}{{ column.formType|as_php|convert_as_form(column.formType) }}{% endif %});
+    }
+
+    /**
+     * Get options for {{ column.name }} field.
+     *
+     * @param  array $builderOptions The builder options.
+     * @return array Field options.
+     */
+    protected function getOptions{{ column.name|classify|php_name }}(array $builderOptions = array())
+    {
+        $optionsClass = '{{ builder.namespacePrefixWithSubfolder }}\{{ bundle_name }}\Form\Type\{{ builder.BaseGeneratorName }}\Options';
+        $options = class_exists($optionsClass) ? new $optionsClass() : null;
+
+        return $this->resolveOptions('{{ column.name }}', {{ ({
             'label': column.label,
             'translation_domain': i18n_catalog|default('Admin')
-        })|as_php|convert_as_form(column.formType) }});
-        $builder->add('{{ column.name }}', {{ column.formType|as_php|convert_as_form(column.formType) }}, $formOptions);
-
-    {% if column.credentials %}
-        }
-    {%- endif -%}
-    {%- endif -%}
-    {%- endfor %}
-
+        })|merge(column.formOptions)|as_php|convert_as_form(column.formType) }}, $builderOptions, $options);
     }
 
-    protected function getFormOption($name, array $formOptions)
+    /**
+     * Check groups for {{ column.name }} field.
+     *
+     * @return boolean
+     */
+    protected function canDisplay{{ column.name|classify|php_name }}()
     {
-        return $formOptions;
+        return $this->checkGroups({{ column.groups|as_php }});
     }
+
+{% endfor %}
 
     public function getName()
     {
-        return '{{ builder.YamlKey }}_{{ builder.ModelClass|lower }}';
+        return '{{ builder.YamlKey }}_{{ bundle_name|lower }}_{{ builder.ModelClass|lower }}';
     }
-
-    public function setSecurityContext($securityContext)
-    {
-        $this->securityContext = $securityContext;
-    }
-
 }
 {% endblock %}
