@@ -1,0 +1,52 @@
+parameters:
+    admingenerator.doctrine.class: Melody\AdminBundle\Generator\DoctrineGenerator
+    twig.loader.filesystem.class: Melody\AdminBundle\Twig\Loader\FilesystemLoader
+
+# AdminGenerator Configuration
+admingenerator_generator:
+    use_propel:       "%orm_propel%"
+    use_doctrine_orm: "%orm_doctrine%"
+    base_admin_template: MelodyAdminBundle::base.html.twig
+    stylesheets:
+      - { path: bundles/admin/css/common.css }
+    templates_dirs:
+        - "%kernel.root_dir%/../vendor/melody/admin/Resources/templates"
+        - "%kernel.root_dir%/../vendor/symfony2admingenerator/generator-bundle/Resources/templates"
+    form_types:
+        propel:
+            TIMESTAMP:    afe_datetime_picker 
+            BU_TIMESTAMP: afe_datetime_picker 
+            DATE:         afe_date_picker 
+            BU_DATE:      afe_date_picker 
+            TIME:         afe_time_picker 
+# Knp Menu Configuration
+knp_menu:
+    providers:
+        builder_alias: true
+        container_aware: true
+
+jms_security_extra:
+    # Enables expression language
+    expressions: true
+
+# services
+services: 
+    menu_builder:
+        class: Melody\AdminBundle\Menu\Builder
+        arguments: ["@knp_menu.factory","@service_container"]
+      
+    menu.admin:
+        class: Knp\Menu\MenuItem
+        factory_service: menu_builder
+        factory_method: createAdminMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+          - { name: knp_menu.menu, alias: admin }
+
+hwi_oauth:
+    firewall_name: account
+    connect:
+        confirmation: true
+    fosub:
+        username_iterations: 30
