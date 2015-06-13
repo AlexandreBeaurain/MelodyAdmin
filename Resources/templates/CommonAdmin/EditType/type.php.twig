@@ -15,14 +15,11 @@ class {{ builder.YamlKey|ucfirst }}Type extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->groups = $options['groups'];
-        
-    {% for column in builder.columns %}
-    {% if column.name not in ['created_at','updated_at','tree_left','tree_right','tree_level'] %}
+{% for column in builder.columns %}{% if column.name not in ['created_at','updated_at','tree_left','tree_right','tree_level'] %}
         if ($this->canDisplay{{ column.name|classify|php_name }}()) {
             $builder->add('{{ column.name }}', $this->getType{{ column.name|classify|php_name }}(), $this->getOptions{{ column.name|classify|php_name }}($options));
         }
-    {% endif %}
-    {% endfor %}
+{% endif %}{% endfor %}
     }
 
 {% for column in builder.columns %}
