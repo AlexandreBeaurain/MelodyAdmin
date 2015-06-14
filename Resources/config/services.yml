@@ -2,6 +2,16 @@ parameters:
     admingenerator.doctrine.class: Melody\AdminBundle\Generator\DoctrineGenerator
     twig.loader.filesystem.class: Melody\AdminBundle\Twig\Loader\FilesystemLoader
 
+framework:
+    templating:
+        packages:
+             admingenerator_css:
+                version: 1.0
+                version_format: "%%1$s?v%%2$s"
+             admingenerator_js:
+                version: 1.0
+                version_format: "%%1$s?v%%2$s"
+
 # AdminGenerator Configuration
 admingenerator_generator:
     use_propel:       "%orm_propel%"
