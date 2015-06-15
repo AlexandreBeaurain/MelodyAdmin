@@ -69,11 +69,11 @@ admingenerator_form_extensions:
     # you need these JS assets for some form types
     # if you set it to true, the bundle will include them for you
     # otherwise you have to do it manually
-    include_jquery:           true
+    include_jquery:           false
     include_jqueryui:         true
     include_momentjs:         true
     include_blueimp:          true 
-    include_gmaps:            true
+    include_gmaps:            false
 
 # Knp Menu Configuration
 knp_menu:
