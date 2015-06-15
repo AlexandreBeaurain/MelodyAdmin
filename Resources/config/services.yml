@@ -11,6 +11,12 @@ framework:
              admingenerator_js:
                 version: 1.0
                 version_format: "%%1$s?v%%2$s"
+             formextensions_css:
+                version: 1.0
+                version_format: "%%1$s?v%%2$s"
+             formextensions_js:
+                version: 1.0
+                version_format: "%%1$s?v%%2$s"
 
 # AdminGenerator Configuration
 admingenerator_generator:
@@ -23,20 +29,67 @@ admingenerator_generator:
         - "%kernel.root_dir%/../vendor/melody/admin/Resources/templates"
         - "%kernel.root_dir%/../vendor/symfony2admingenerator/generator-bundle/Resources/templates"
     form_types:
+        doctrine_orm:
+            datetime:     s2a_datetime_picker
+            vardatetime:  s2a_datetime_picker
+            datetimetz:   s2a_datetime_picker
+            date:         s2a_datetime_picker
+        doctrine_odm:
+            datetime:     s2a_datetime_picker
+            vardatetime:  s2a_datetime_picker
+            datetimetz:   s2a_datetime_picker
+            date:         s2a_datetime_picker
         propel:
-            TIMESTAMP:    afe_datetime_picker 
-            BU_TIMESTAMP: afe_datetime_picker 
-            DATE:         afe_date_picker 
-            BU_DATE:      afe_date_picker 
-            TIME:         afe_time_picker 
+            TIMESTAMP:    s2a_datetime_picker
+            BU_TIMESTAMP: s2a_datetime_picker
+    filter_types:
+        doctrine_orm:
+            datetime:     s2a_daterange_picker
+            vardatetime:  s2a_daterange_picker
+            datetimetz:   s2a_daterange_picker
+            date:         s2a_daterange_picker
+        doctrine_odm:
+            datetime:     s2a_daterange_picker
+            vardatetime:  s2a_daterange_picker
+            datetimetz:   s2a_daterange_picker
+            date:         s2a_daterange_picker
+        propel:
+            TIMESTAMP:    s2a_daterange_picker
+            BU_TIMESTAMP: s2a_daterange_picker
+
+admingenerator_form_extensions:
+    upload_manager:           ~
+    image_manipulator:        ~
+    twig:
+        use_form_resources:     true
+    collection_upload:
+        async_listener_enabled: false
+        async_route_name:       ~
+        file_storage:           admingenerator.form.file_storage.local
+    # you need these JS assets for some form types
+    # if you set it to true, the bundle will include them for you
+    # otherwise you have to do it manually
+    include_jquery:           true
+    include_jqueryui:         true
+    include_momentjs:         true
+    include_blueimp:          true 
+    include_gmaps:            true
+
 # Knp Menu Configuration
 knp_menu:
     providers:
         builder_alias: true
         container_aware: true
 
+jms_di_extra:
+    locations:
+        all_bundles:  true
+#        bundles:      []
+        directories:  ["%kernel.root_dir%/../src"]
+
 jms_security_extra:
     # Enables expression language
+    secure_all_services: false
     expressions: true
 
 # services
