@@ -7,7 +7,8 @@
 		"melody/user" : "dev-master",
 		"symfony2admingenerator/form-extensions-bundle" : "dev-master",
 		"symfony2admingenerator/generator-bundle" : "dev-master",
-		"symfony2admingenerator/user-bundle" : "dev-master"
+		"symfony2admingenerator/user-bundle" : "dev-master",
+		"liuggio/excelbundle": ">=2.0"
 	},
 	"suggest" : {
 		"doctrine/doctrine-bundle" : "~1.2",
